@@ -745,7 +745,6 @@ static const CGFloat kTOCropViewControllerToolbarHeight = 44.0f;
             completion();
         }
         
-        [strongSelf.cropView setCroppingViewsHidden:NO animated:YES];
         if (!CGRectIsEmpty(fromFrame)) {
             [strongSelf.cropView setGridOverlayHidden:NO animated:YES];
         }

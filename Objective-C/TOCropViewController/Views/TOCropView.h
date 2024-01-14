@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly) BOOL canBeReset;
 
-/** 
+/**
  The frame of the cropping box in the coordinate space of the crop view
  */
 @property (nonatomic, readonly) CGRect cropBoxFrame;
@@ -140,7 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger angle;
 
 /**
- Hide all of the crop elements for transition animations 
+ Hide all of the crop elements for transition animations
  */
 @property (nonatomic, assign) BOOL croppingViewsHidden;
 
@@ -183,24 +183,6 @@ The minimum croping aspect ratio. If set, user is prevented from setting croppin
  */
 @property (nonatomic, assign) BOOL alwaysShowCroppingGrid;
 
-/**
- Permanently hides the translucency effect covering the outside bounds of the
- crop box. (Default is NO)
- */
-@property (nonatomic, assign) BOOL translucencyAlwaysHidden;
-
-///*
-// if YES it will always show grid
-// if NO it will never show grid
-// NOTE : Do not use this method if you want to keep grid hide/show animation
-// */
-//- (void)setAlwaysShowGrid:(BOOL)showGrid;
-//
-///*
-// if YES it will disable translucency effect
-// */
-//- (void)setTranslucencyOff:(BOOL)disableTranslucency;
-
 
 /**
  Create a default instance of the crop view with the supplied image
@@ -228,7 +210,7 @@ The minimum croping aspect ratio. If set, user is prevented from setting croppin
 - (void)setSimpleRenderMode:(BOOL)simpleMode animated:(BOOL)animated;
 
 /**
- When performing a screen rotation that will change the size of the scroll view, this takes 
+ When performing a screen rotation that will change the size of the scroll view, this takes
  a snapshot of all of the scroll view data before it gets manipulated by iOS.
  Please call this in your view controller, before the rotation animation block is committed.
  */
@@ -274,11 +256,6 @@ The minimum croping aspect ratio. If set, user is prevented from setting croppin
  Animate the grid overlay graphic to be visible
  */
 - (void)setGridOverlayHidden:(BOOL)gridOverlayHidden animated:(BOOL)animated;
-
-/**
- Animate the cropping component views to become visible
- */
-- (void)setCroppingViewsHidden:(BOOL)hidden animated:(BOOL)animated;
 
 /**
  Animate the background image view to become visible
