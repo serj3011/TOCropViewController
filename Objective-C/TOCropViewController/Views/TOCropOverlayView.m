@@ -22,7 +22,9 @@
 
 #import "TOCropOverlayView.h"
 
-static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
+static const CGFloat kTOCropOverLayerCornerWidth = 75.0f;
+static const CGFloat kTOCropOverLayerCornerHeight = 40.0f;
+static UIColor *gridLinesColor;
 
 @interface TOCropOverlayView ()
 
@@ -52,8 +54,12 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
 
 - (void)setup
 {
+    self.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.25f];
+    gridLinesColor = [UIColor colorWithRed:116.0f/255.0f green:116.0f/255.0f blue:116.0f/255.0f alpha:1.0f];
+    
+    UIColor *outerLineViewsColor = UIColor.blackColor;
     UIView *(^newLineView)(void) = ^UIView *(void){
-        return [self createNewLineView];
+        return [self createNewLineViewWithColor:outerLineViewsColor];
     };
 
     _outerLineViews     = @[newLineView(), newLineView(), newLineView(), newLineView()];
@@ -87,21 +93,6 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
 {
     CGSize boundsSize = self.bounds.size;
     
-    //border lines
-    for (NSInteger i = 0; i < 4; i++) {
-        UIView *lineView = self.outerLineViews[i];
-        
-        CGRect frame = CGRectZero;
-        switch (i) {
-            case 0: frame = (CGRect){0,-1.0f,boundsSize.width+2.0f, 1.0f}; break; //top
-            case 1: frame = (CGRect){boundsSize.width,0.0f,1.0f,boundsSize.height}; break; //right
-            case 2: frame = (CGRect){-1.0f,boundsSize.height,boundsSize.width+2.0f,1.0f}; break; //bottom
-            case 3: frame = (CGRect){-1.0f,0,1.0f,boundsSize.height+1.0f}; break; //left
-        }
-        
-        lineView.frame = frame;
-    }
-    
     //corner liness
     NSArray *cornerLines = @[self.topLeftLineViews, self.topRightLineViews, self.bottomRightLineViews, self.bottomLeftLineViews];
     for (NSInteger i = 0; i < 4; i++) {
@@ -110,20 +101,20 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
         CGRect verticalFrame = CGRectZero, horizontalFrame = CGRectZero;
         switch (i) {
             case 0: //top left
-                verticalFrame = (CGRect){-3.0f,-3.0f,3.0f,kTOCropOverLayerCornerWidth+3.0f};
-                horizontalFrame = (CGRect){0,-3.0f,kTOCropOverLayerCornerWidth,3.0f};
+                verticalFrame = (CGRect){0,3.0f,3.0f,kTOCropOverLayerCornerHeight};
+                horizontalFrame = (CGRect){0,0,kTOCropOverLayerCornerWidth,3.0f};
                 break;
             case 1: //top right
-                verticalFrame = (CGRect){boundsSize.width,-3.0f,3.0f,kTOCropOverLayerCornerWidth+3.0f};
-                horizontalFrame = (CGRect){boundsSize.width-kTOCropOverLayerCornerWidth,-3.0f,kTOCropOverLayerCornerWidth,3.0f};
+                verticalFrame = (CGRect){boundsSize.width-3.0f,3.0f,3.0f,kTOCropOverLayerCornerHeight};
+                horizontalFrame = (CGRect){boundsSize.width-kTOCropOverLayerCornerWidth,0,kTOCropOverLayerCornerWidth,3.0f};
                 break;
             case 2: //bottom right
-                verticalFrame = (CGRect){boundsSize.width,boundsSize.height-kTOCropOverLayerCornerWidth,3.0f,kTOCropOverLayerCornerWidth+3.0f};
-                horizontalFrame = (CGRect){boundsSize.width-kTOCropOverLayerCornerWidth,boundsSize.height,kTOCropOverLayerCornerWidth,3.0f};
+                verticalFrame = (CGRect){boundsSize.width-3.0f,boundsSize.height-kTOCropOverLayerCornerHeight-3.0f,3.0f,kTOCropOverLayerCornerHeight};
+                horizontalFrame = (CGRect){boundsSize.width-kTOCropOverLayerCornerWidth,boundsSize.height-3.0f,kTOCropOverLayerCornerWidth,3.0f};
                 break;
             case 3: //bottom left
-                verticalFrame = (CGRect){-3.0f,boundsSize.height-kTOCropOverLayerCornerWidth,3.0f,kTOCropOverLayerCornerWidth};
-                horizontalFrame = (CGRect){-3.0f,boundsSize.height,kTOCropOverLayerCornerWidth+3.0f,3.0f};
+                verticalFrame = (CGRect){0,boundsSize.height-kTOCropOverLayerCornerHeight-3.0f,3.0f,kTOCropOverLayerCornerHeight};
+                horizontalFrame = (CGRect){0,boundsSize.height-3.0f,kTOCropOverLayerCornerWidth,3.0f};
                 break;
         }
         
@@ -192,7 +183,11 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
     }];
     
     if (_displayHorizontalGridLines) {
-        self.horizontalGridLines = @[[self createNewLineView], [self createNewLineView]];
+        self.horizontalGridLines = @[
+            [self createNewLineViewWithColor:gridLinesColor],
+            [self createNewLineViewWithColor:gridLinesColor],
+            [self createNewLineViewWithColor:gridLinesColor]
+        ];
     } else {
         self.horizontalGridLines = @[];
     }
@@ -207,7 +202,11 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
     }];
     
     if (_displayVerticalGridLines) {
-        self.verticalGridLines = @[[self createNewLineView], [self createNewLineView]];
+        self.verticalGridLines = @[
+            [self createNewLineViewWithColor:gridLinesColor],
+            [self createNewLineViewWithColor:gridLinesColor],
+            [self createNewLineViewWithColor:gridLinesColor]
+        ];
     } else {
         self.verticalGridLines = @[];
     }
@@ -221,9 +220,9 @@ static const CGFloat kTOCropOverLayerCornerWidth = 20.0f;
 
 #pragma mark - Private methods
 
-- (nonnull UIView *)createNewLineView {
+- (nonnull UIView *)createNewLineViewWithColor:(UIColor *)color {
     UIView *newLine = [[UIView alloc] initWithFrame:CGRectZero];
-    newLine.backgroundColor = [UIColor whiteColor];
+    newLine.backgroundColor = color;
     [self addSubview:newLine];
     return newLine;
 }
