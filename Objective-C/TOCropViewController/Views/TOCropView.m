@@ -24,7 +24,7 @@
 #import "TOCropOverlayView.h"
 #import "TOCropScrollView.h"
 
-#define TOCROPVIEW_BACKGROUND_COLOR [UIColor colorWithWhite:1.0f alpha:1.0f]
+#define TOCROPVIEW_BACKGROUND_COLOR [UIColor whiteColor]
 
 static const CGFloat kTOCropViewPadding = 14.0f;
 static const NSTimeInterval kTOCropTimerDuration = 0.8f;
@@ -1181,7 +1181,6 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
         self.cropBoxLastEditedAngle = self.angle;
     }
     
-    CGFloat duration = editing ? 0.05f : 0.35f;
     CGFloat delay = editing? 0.0f : 0.35f;
     
     if (self.croppingStyle == TOCropViewCroppingStyleCircular) {

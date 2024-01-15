@@ -221,47 +221,6 @@ open class CropViewController: UIViewController, TOCropViewControllerDelegate {
     }
     
     /**
-     When disabled, an additional rotation button that rotates the canvas in
-     90-degree segments in a clockwise direction is shown in the toolbar.
-     
-     Default is false.
-     */
-    public var rotateClockwiseButtonHidden: Bool {
-        set { toCropViewController.rotateClockwiseButtonHidden = newValue }
-        get { return toCropViewController.rotateClockwiseButtonHidden }
-    }
-    
-    /**
-     When enabled, hides the rotation button, as well as the alternative rotation
-     button visible when `showClockwiseRotationButton` is set to true.
-     
-     Default is false.
-     */
-    public var rotateButtonsHidden: Bool {
-        set { toCropViewController.rotateButtonsHidden = newValue }
-        get { return toCropViewController.rotateButtonsHidden }
-    }
-    /**
-     When enabled, hides the 'Reset' button on the toolbar.
-
-     Default is false.
-     */
-    public var resetButtonHidden: Bool {
-        set { toCropViewController.resetButtonHidden = newValue }
-        get { return toCropViewController.resetButtonHidden }
-    }
-    
-    /**
-     When enabled, hides the 'Aspect Ratio Picker' button on the toolbar.
-     
-     Default is false.
-     */
-    public var aspectRatioPickerButtonHidden: Bool {
-        set { toCropViewController.aspectRatioPickerButtonHidden = newValue }
-        get { return toCropViewController.aspectRatioPickerButtonHidden }
-    }
-    
-    /**
      When enabled, hides the 'Done' button on the toolbar.
 
      Default is false.
