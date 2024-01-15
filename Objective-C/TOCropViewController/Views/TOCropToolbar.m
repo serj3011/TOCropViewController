@@ -151,7 +151,7 @@ static UIColor *accentColor;
 #endif
     
     if (verticalLayout == NO) {
-        CGFloat insetPadding = 10.0f;
+        CGFloat insetPadding = 16.0f;
         
         // Work out the cancel button frame
         CGRect frame = CGRectZero;
